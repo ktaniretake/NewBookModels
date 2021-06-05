@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace NewBookModelsSeleniumTests.POM.SignIn
 {
@@ -7,10 +9,10 @@ namespace NewBookModelsSeleniumTests.POM.SignIn
     {
         private readonly IWebDriver _webDriver;
 
-        private static readonly By _emailField = By.CssSelector("div[title ='edit']");
-        private static readonly By _passwordField = By.CssSelector("input[type=email]");
-        private static readonly By _logInButton = By.CssSelector("input[type=password]");
-        private static readonly By _signUpRedirectionButton = By.CssSelector("[class^=SignInForm__submitButton]");
+        private static readonly By _emailField = By.CssSelector("input[type=email]");
+        private static readonly By _passwordField = By.CssSelector("input[type=password]");
+        private static readonly By _logInButton = By.CssSelector("button[type=submit]");
+        private static readonly By _signUpRedirectionButton = By.CssSelector("div[class^= 'SignInForm__signUpLink']");
         private static readonly By _forgotPasswordRedirection = By.CssSelector("a[class ^= 'SignInPage__forgotPassword']");
         private static readonly By _emailErrorMessage = By.XPath(".//input[@type='email']/../div/div");
         private static readonly By _passwordErrorMessage = By.XPath(".//input[@type='password']/../div/div");
@@ -47,7 +49,9 @@ namespace NewBookModelsSeleniumTests.POM.SignIn
 
         public string ShowRedirectionSignUpURL()
         {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
             _webDriver.FindElement(_signUpRedirectionButton).Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlMatches("https://newbookmodels.com/join"));
             var signUpURL = _webDriver.Url;
             return signUpURL;
         }
@@ -65,7 +69,7 @@ namespace NewBookModelsSeleniumTests.POM.SignIn
 
         public string ShowPasswordErrorMessage()
         {
-            return _webDriver.FindElement(_emailErrorMessage).Text;
+            return _webDriver.FindElement(_passwordErrorMessage).Text;
         }
 
         public string ShowIncorrectDataErrorMessage()

@@ -5,7 +5,7 @@ namespace NewBookModelsApiTests
 {
     public class UserConstructor
     {
-        public Dictionary<string, string> User = new Dictionary<string, string>()
+        public Dictionary<string, string> User = new()
         {
             { "email", $"Jonson{DateTime.Now:ddyyyymmHHmmssffff}@gmail.com" },
             { "first_name", "Ban" },

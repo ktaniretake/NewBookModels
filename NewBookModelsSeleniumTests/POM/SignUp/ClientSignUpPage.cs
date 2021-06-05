@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace NewBookModelsSeleniumTests.POM.SignUp
 {
@@ -71,7 +73,9 @@ namespace NewBookModelsSeleniumTests.POM.SignUp
 
         public string ShowRedirectionSignInURL()
         {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
             _webDriver.FindElement(_signInRedirectionButton).Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlMatches("https://newbookmodels.com/auth/signin"));
             var signInURL = _webDriver.Url;
             return signInURL;
         }

@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace NewBookModelsSeleniumTests.POM.AccountSettings
 {
@@ -12,7 +14,7 @@ namespace NewBookModelsSeleniumTests.POM.AccountSettings
         private static readonly By _firstNameFieldEditGeneralInformationBlock = By.CssSelector("nb-account-info-general-information common-input[formcontrolname = 'first_name'] input");
         private static readonly By _lastNameFieldEditGeneralInformationBlock = By.CssSelector("nb-account-info-general-information common-input[formcontrolname = 'last_name'] input");
         private static readonly By _companyLocationFieldEditGeneralInformationBlock = By.CssSelector("common-google-maps-autocomplete input");
-        private static readonly By _companyLocationSelectEditGeneralInformationBlock = By.CssSelector("//div[@class = 'pac-item']");
+        private static readonly By _companyLocationSelectEditGeneralInformationBlock = By.XPath("//div[@class = 'pac-item']");
         private static readonly By _industryFieldEditGeneralInformationBlock = By.CssSelector("nb-account-info-general-information common-input[formcontrolname = 'industry'] input");
         private static readonly By _saveChangesButtonEditGeneralInformationBlock = By.CssSelector("nb-account-info-general-information common-button-deprecated button[type = 'submit']");
         private static readonly By _newAccountHolderName = By.XPath(".//nb-header/../nb-paragraph[2]/div");
@@ -69,25 +71,29 @@ namespace NewBookModelsSeleniumTests.POM.AccountSettings
 
         public AccountInfoPage SetFirstNameGeneralInformationEditBlock(string firstName)
         {
+            _webDriver.FindElement(_firstNameFieldEditGeneralInformationBlock).Clear();
             _webDriver.FindElement(_firstNameFieldEditGeneralInformationBlock).SendKeys(firstName);
             return this;
         }
 
         public AccountInfoPage SetLastNameGeneralInformationEditBlock(string lastName)
         {
+            _webDriver.FindElement(_lastNameFieldEditGeneralInformationBlock).Clear();
             _webDriver.FindElement(_lastNameFieldEditGeneralInformationBlock).SendKeys(lastName);
             return this;
         }
 
         public AccountInfoPage SetCompanyLocationGeneralInformationEditBlock(string location)
         {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
             _webDriver.FindElement(_companyLocationFieldEditGeneralInformationBlock).SendKeys(location);
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(_companyLocationSelectEditGeneralInformationBlock));
             _webDriver.FindElement(_companyLocationSelectEditGeneralInformationBlock).Click();
             return this;
         }
 
         public AccountInfoPage SetIndustryInformationEditBlock(string industry)
-        {
+        { 
             _webDriver.FindElement(_industryFieldEditGeneralInformationBlock).SendKeys(industry);
             return this;
         }
@@ -184,16 +190,16 @@ namespace NewBookModelsSeleniumTests.POM.AccountSettings
             return;
         }
 
-        public void ClickPhoneEditButton()
+        public AccountInfoPage ClickPhoneEditButton()
         {
             _webDriver.FindElement(_phoneEditButton).Click();
-            return;
+            return this;
         }
 
-        public void ClickPhoneCancelEditButton()
+        public AccountInfoPage ClickPhoneCancelEditButton()
         {
             _webDriver.FindElement(_phoneCancelEditButton).Click();
-            return;
+            return this;
         }
 
         public AccountInfoPage SetCurrentPasswordEditPhoneBlock(string password)
