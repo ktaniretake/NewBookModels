@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace NewBookModelsApiTests.POM.SignUp
+namespace NewBookModelsSeleniumTests.POM.SignUp
 {
     public class ClientSignUpPage
     {

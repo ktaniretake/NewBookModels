@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 
-namespace NewBookModelsApiTests.POM.AccountSettings
+namespace NewBookModelsSeleniumTests.POM.AccountSettings
 {
     public class AccountInfoPage
     {
@@ -100,7 +100,7 @@ namespace NewBookModelsApiTests.POM.AccountSettings
 
         public string ShowNewAccountHolderName()
         {
-           return _webDriver.FindElement(_newAccountHolderName).Text;
+            return _webDriver.FindElement(_newAccountHolderName).Text;
         }
 
         public string ShowNewCompanyLocation()

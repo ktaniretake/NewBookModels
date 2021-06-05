@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 
-namespace NewBookModelsApiTests.POM.SignUp
+namespace NewBookModelsSeleniumTests.POM.SignUp
 {
     public class CompanySignUpPage
     {

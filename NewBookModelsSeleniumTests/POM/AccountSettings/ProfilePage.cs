@@ -1,7 +1,6 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 
-namespace NewBookModelsApiTests.POM.AccountSettings
+namespace NewBookModelsSeleniumTests.POM.AccountSettings
 {
     public class ProfilePage
     {
