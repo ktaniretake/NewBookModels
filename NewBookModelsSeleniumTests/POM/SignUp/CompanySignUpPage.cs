@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace NewBookModelsSeleniumTests.POM.SignUp
 {
@@ -29,7 +31,7 @@ namespace NewBookModelsSeleniumTests.POM.SignUp
             return this;
         }
 
-        public CompanySignUpPage SetEmail(string companyName)
+        public CompanySignUpPage SetCompanyName(string companyName)
         {
             _webDriver.FindElement(_companyNameField).SendKeys(companyName);
             return this;
@@ -43,15 +45,19 @@ namespace NewBookModelsSeleniumTests.POM.SignUp
 
         public CompanySignUpPage SetCompanyAdress(string companyAdress)
         {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
             _webDriver.FindElement(_companyAdressField).SendKeys(companyAdress);
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(_firstElementAdressDropdown));
             _webDriver.FindElement(_firstElementAdressDropdown).Click();
             return this;
         }
 
         public CompanySignUpPage SetIndurstry(string industry)
         {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
             _webDriver.FindElement(_industryDropdown).Click();
-            _webDriver.FindElement(By.XPath($"./div[text() = '{industry}']")).Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath($"//span[contains(text(), '{industry}')]")));
+            _webDriver.FindElement(By.XPath($"//span[contains(text(), '{industry}')]")).Click();
             return this;
         }
 

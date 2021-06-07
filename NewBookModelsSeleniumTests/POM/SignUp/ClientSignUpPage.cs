@@ -90,5 +90,10 @@ namespace NewBookModelsSeleniumTests.POM.SignUp
             var messageText = _webDriver.FindElement(By.XPath($"//*[contains(text(), '{message}')]")).Text;
             return messageText;
         }
+
+        public IWebDriver ReturnWebDriver()
+        {
+            return _webDriver;
+        }
     }
 }
